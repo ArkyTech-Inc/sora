@@ -1,3 +1,4 @@
+import { GoogleAnalytics } from '@next/third-parties/google'
 import type { Metadata, Viewport } from 'next'
 import { Inter, Plus_Jakarta_Sans } from 'next/font/google'
 import { AccessibilityProvider } from '@/components/accessibility-provider'
@@ -50,7 +51,7 @@ export default function RootLayout({
     >
       <body className="font-sans antialiased">
         <AccessibilityProvider>{children}</AccessibilityProvider>
-        {/* {process.env.NODE_ENV === 'production' && <Analytics />} */}
+        <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID!} />
       </body>
     </html>
   )
