@@ -6,3 +6,7 @@
 node_modules
 .next/
 .DS_Store
+
+# Serwist generated files
+public/sw*
+public/swe-worker*
