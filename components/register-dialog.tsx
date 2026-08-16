@@ -102,6 +102,12 @@ export function RegisterDialog({
               >
                 Create My Profile
               </Button>
+              <Button
+                type="submit"
+                className="mt-2 w-full bg-green font-semibold text-green-foreground hover:bg-green/90"
+              >
+                Sign Up with your National PWD ID (N-PWDID)
+              </Button>
             </form>
           </>
         )}
