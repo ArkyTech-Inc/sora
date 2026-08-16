@@ -2,9 +2,9 @@ import type { MetadataRoute } from 'next'
  
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: 'My Modern PWA',
-    short_name: 'PWA',
-    description: 'Built with Next.js and Serwist',
+    name: 'Sora — Inclusive Jobs & Adaptive Skills for PWDs in Nigeria',
+    short_name: 'Sora',
+    description: 'Sora is an inclusive job-matching and adaptive skills platform for Persons with Disabilities in Nigeria. From disability-aware profiling to matched job placement—build a career that fits you.',
     start_url: '/',
     display: 'standalone',
     background_color: '#ffffff',

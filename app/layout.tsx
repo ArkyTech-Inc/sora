@@ -20,7 +20,8 @@ export const metadata: Metadata = {
   title: 'Sora — Inclusive Jobs & Adaptive Skills for PWDs in Nigeria',
   description:
     'Sora is an inclusive job-matching and adaptive skills platform for Persons with Disabilities in Nigeria. From disability-aware profiling to matched job placement—build a career that fits you.',
-  generator: 'sora',
+    manifest: '/manifest.webmanifest',
+    generator: 'sora',
   keywords: [
     'Sora',
     'disability jobs Nigeria',

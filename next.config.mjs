@@ -5,6 +5,8 @@ const withSerwist = withSerwistInit({
   swSrc: "app/sw.ts",
   // The output file that the browser will load
   swDest: "public/sw.js",
+  //explicitly register the service worker in the browser
+  register: true,
   // Disable in dev mode to prevent caching confusion while coding
   disable: process.env.NODE_ENV === "development",
 });
