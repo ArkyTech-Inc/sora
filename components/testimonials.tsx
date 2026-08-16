@@ -19,12 +19,12 @@ export function Testimonials() {
         </blockquote>
         <figcaption className="mt-6 flex items-center justify-center gap-3">
           <span className="flex h-12 w-12 items-center justify-center rounded-full bg-navy font-display text-lg font-bold text-navy-foreground">
-            M
+            AS
           </span>
           <span className="text-left">
-            <span className="block font-semibold text-foreground">Musa</span>
+            <span className="block font-semibold text-foreground">Abdulhaqq Somoye</span>
             <span className="block text-sm text-muted-foreground">
-              Software Developer
+              Operations Associate
             </span>
           </span>
         </figcaption>
