@@ -40,6 +40,12 @@ export function Hero() {
             >
               Explore Open Roles
             </a>
+            <a
+              href="#"
+              className="inline-flex h-11 items-center justify-center gap-2 rounded-md border border-navy-foreground/30 px-6 text-base font-medium text-navy-foreground transition-colors hover:bg-navy-foreground/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange"
+            >
+              COMING SOON!
+            </a>
           </div>
         </div>
 

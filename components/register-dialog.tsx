@@ -49,8 +49,8 @@ export function RegisterDialog({
                 You&apos;re on your way!
               </DialogTitle>
               <DialogDescription>
-                Thanks for registering with Sora. We&apos;ll be in touch to
-                start your accessibility-aware profile.
+                Thanks for registering with Sora. Your profile has been recorded and we&apos;ll be in touch once we launch.
+      .
               </DialogDescription>
             </DialogHeader>
           </div>
@@ -61,7 +61,10 @@ export function RegisterDialog({
                 Create your Sora profile
               </DialogTitle>
               <DialogDescription>
-                Start with a quick, disability-aware profile so we can match you
+                Join the Waitlist!
+                <br/>
+                <br/>
+                 Start with a quick, disability-aware profile so we can match you
                 with inclusive employers and adaptive learning.
               </DialogDescription>
             </DialogHeader>
@@ -102,6 +105,7 @@ export function RegisterDialog({
               >
                 Create My Profile
               </Button>
+                
               <Button
                 type="submit"
                 className="mt-2 w-full bg-green font-semibold text-green-foreground hover:bg-green/90"
