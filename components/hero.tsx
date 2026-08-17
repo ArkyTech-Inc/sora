@@ -11,9 +11,6 @@ export function Hero() {
     >
       <div className="mx-auto grid max-w-7xl items-center gap-10 px-4 py-16 sm:px-6 md:grid-cols-2 md:py-24 lg:px-8">
         <div className="flex flex-col gap-6">
-          <span className="inline-flex w-fit items-center gap-2 rounded-full bg-mint px-3 py-1 text-sm font-medium text-mint-foreground">
-            Technology Without Barriers · NCC Hackathon 2026
-          </span>
           <h1 className="text-balance font-display text-4xl font-extrabold leading-tight tracking-tight sm:text-5xl">
             Unlocking Your Potential: A Job &amp; Skills Platform Tailored for
             Persons with Disabilities in Nigeria.
