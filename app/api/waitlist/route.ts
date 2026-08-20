@@ -42,7 +42,7 @@ export async function POST(req: Request) {
 
     // 2. Send Priority Access Email via Resend
     await resend.emails.send({
-      from: 'Sora <onboarding@resend.dev>', // Replace with your verified domain in production
+      from: 'Sora <onboarding@sora.com.ng>',
       to: [email],
       subject: "You're on the Sora Waitlist — Priority Access Granted! 🚀",
       html: `
