@@ -20,17 +20,7 @@ export function Hero() {
             that fits <span className="font-semibold text-orange">you</span>.
           </p>
           <div className="mt-2 flex flex-col gap-3 sm:flex-row">
-            <RegisterDialog
-              trigger={
-                <Button
-                  size="lg"
-                  className="bg-orange font-semibold text-orange-foreground hover:bg-orange/90"
-                >
-                  Create Your Profile
-                  <ArrowRight className="h-5 w-5" aria-hidden="true" />
-                </Button>
-              }
-            />
+           
             <a
               href="#jobs"
               className="inline-flex h-11 items-center justify-center gap-2 rounded-md border border-navy-foreground/30 px-6 text-base font-medium text-navy-foreground transition-colors hover:bg-navy-foreground/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange"

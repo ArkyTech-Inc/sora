@@ -12,7 +12,6 @@ export function CtaBanner() {
           Create your accessibility-aware profile in minutes and get matched
           with inclusive employers across Nigeria.
         </p>
-      
       </div>
     </section>
   )
