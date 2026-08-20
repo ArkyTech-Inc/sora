@@ -147,6 +147,19 @@ export function RegisterDialog({
               </div>
 
               <div className="flex flex-col gap-2">
+                <Label htmlFor="reg-pwdid">
+                  National PWD ID (N-PWDID) (optional)
+                </Label>
+                <Input
+                  id="reg-pwdid"
+                  name="pwdId"
+                  value={pwdId}
+                  onChange={(e) => setPwdId(e.target.value)}
+                  placeholder="e.g. NCPWD-2026-XXXXX"
+                />
+              </div>
+
+              <div className="flex flex-col gap-2">
                 <Label htmlFor="reg-support">
                   Accessibility support you use (optional)
                 </Label>
