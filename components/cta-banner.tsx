@@ -12,16 +12,7 @@ export function CtaBanner() {
           Create your accessibility-aware profile in minutes and get matched
           with inclusive employers across Nigeria.
         </p>
-        <RegisterDialog
-          trigger={
-            <Button
-              size="lg"
-              className="bg-navy font-semibold text-navy-foreground hover:bg-navy/90"
-            >
-              Register Now
-            </Button>
-          }
-        />
+      
       </div>
     </section>
   )
