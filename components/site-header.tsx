@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import Link from 'next/link'
 import { Menu, X } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { SoraLogo } from '@/components/sora-logo'
@@ -47,8 +48,13 @@ export function SiteHeader() {
         </nav>
 
         <div className="hidden items-center gap-2 md:flex">
-          <Button variant="ghost" className="text-foreground">
-            Log In
+          <Button
+            variant="ghost"
+            className="text-foreground"
+            nativeButton={false}
+            render={<Link href="/employer" />}
+          >
+            Log In an Employer
           </Button>
           <RegisterDialog className="bg-orange font-semibold text-orange-foreground hover:bg-orange/90">
             Get Started / Sign Up
@@ -88,7 +94,14 @@ export function SiteHeader() {
               </a>
             ))}
             <div className="mt-2 flex flex-col gap-2">
-              <Button variant="outline">Log In</Button>
+              <Button
+                variant="outline"
+                nativeButton={false}
+                render={<Link href="/employer" />}
+                onClick={() => setMobileOpen(false)}
+              >
+                Log In as an Employer
+              </Button>
               <RegisterDialog className="w-full bg-orange font-semibold text-orange-foreground hover:bg-orange/90">
                 Get Started / Sign Up
               </RegisterDialog>
