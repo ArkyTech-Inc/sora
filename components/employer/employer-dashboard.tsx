@@ -7,6 +7,7 @@ import { CandidateCard } from '@/components/employer/candidate-card'
 import { InterestDialog } from '@/components/employer/interest-dialog'
 import { TalentFilters } from '@/components/employer/talent-filters'
 
+
 function toggle(list: string[], value: string) {
   return list.includes(value)
     ? list.filter((item) => item !== value)

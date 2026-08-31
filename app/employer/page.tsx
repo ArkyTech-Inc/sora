@@ -3,6 +3,7 @@ import type { Metadata } from 'next'
 import { LogOut } from 'lucide-react'
 import { SoraLogo } from '@/components/sora-logo'
 import { EmployerDashboard } from '@/components/employer/employer-dashboard'
+import { AccessibilityToolbar } from '@/components/accessibility-toolbar'
 
 export const metadata: Metadata = {
   title: 'Employer Dashboard — Sora',
@@ -55,6 +56,7 @@ export default function EmployerPage() {
           </div>
         </div>
       </header>
+      <AccessibilityToolbar />
 
       <main id="talent-pool">
         <EmployerDashboard />
