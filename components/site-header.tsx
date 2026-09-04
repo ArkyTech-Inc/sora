@@ -51,7 +51,7 @@ export function SiteHeader() {
             variant="ghost"
             className="text-foreground"
             nativeButton={false}
-            render={<Link href="/employer" />}
+            render={<Link href="/login" />}
           >
             Employer portal
           </Button>
