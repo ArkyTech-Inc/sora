@@ -1,5 +1,5 @@
+import Link from 'next/link'
 import { Button } from '@/components/ui/button'
-import { RegisterDialog } from '@/components/register-dialog'
 
 export function CtaBanner() {
   return (
@@ -12,6 +12,10 @@ export function CtaBanner() {
           Create your accessibility-aware profile in minutes and get matched
           with inclusive employers across Nigeria.
         </p>
+        <div className="flex flex-col gap-3 sm:flex-row">
+          <Button className="bg-navy text-navy-foreground hover:bg-navy/90" nativeButton={false} render={<Link href="/signup/pwd" />}>Create a PWD profile</Button>
+          <Button variant="outline" className="border-orange-foreground/40 bg-transparent text-orange-foreground hover:bg-orange-foreground/10" nativeButton={false} render={<Link href="/signup/employer" />}>Sign up as an employer</Button>
+        </div>
       </div>
     </section>
   )

@@ -1,9 +1,11 @@
 import Link from 'next/link'
 import type { Metadata } from 'next'
+import { redirect } from 'next/navigation'
 import { LogOut } from 'lucide-react'
 import { SoraLogo } from '@/components/sora-logo'
 import { EmployerDashboard } from '@/components/employer/employer-dashboard'
 import { AccessibilityToolbar } from '@/components/accessibility-toolbar'
+import { getCurrentProfile } from '@/lib/supabase/server'
 
 export const metadata: Metadata = {
   title: 'Employer Dashboard — Sora',
@@ -11,7 +13,11 @@ export const metadata: Metadata = {
     'Browse verified Persons with Disabilities talent by skill and disability type. Profiles stay anonymous until an employer expresses interest.',
 }
 
-export default function EmployerPage() {
+export default async function EmployerPage() {
+  const profile = await getCurrentProfile()
+  if (!profile || profile.role !== 'employer') redirect('/login')
+  if (profile.status !== 'approved') redirect('/account')
+
   return (
     <>
       <a
@@ -40,10 +46,10 @@ export default function EmployerPage() {
           <div className="flex items-center gap-3">
             <div className="hidden flex-col text-right sm:flex">
               <span className="text-sm font-semibold leading-tight text-foreground">
-                NCC Talent Team
+                {profile.full_name}
               </span>
               <span className="text-xs text-muted-foreground">
-                recruitment@ncc.gov.ng
+                {profile.email}
               </span>
             </div>
             <Link
@@ -59,7 +65,7 @@ export default function EmployerPage() {
       <AccessibilityToolbar />
 
       <main id="talent-pool">
-        <EmployerDashboard />
+        <EmployerDashboard employerName={profile.full_name} />
       </main>
     </>
   )

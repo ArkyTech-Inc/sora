@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import Link from 'next/link'
 import { ArrowRight } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { RegisterDialog } from '@/components/register-dialog'
@@ -27,12 +28,9 @@ export function Hero() {
             >
               Explore Open Roles
             </a>
-            <a
-              href="#how-it-works"
-              className="inline-flex h-11 items-center justify-center gap-2 rounded-md border border-navy-foreground/30 px-6 text-base font-medium text-navy-foreground transition-colors hover:bg-navy-foreground/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange"
-            >
-              COMING SOON!
-            </a>
+            <Link href="/signup/employer" className="inline-flex h-11 items-center justify-center gap-2 rounded-md bg-orange px-6 text-base font-semibold text-orange-foreground transition-colors hover:bg-orange/90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange">
+              Sign up as an employer
+            </Link>
           </div>
         </div>
 

@@ -38,10 +38,10 @@ export function CandidateCard({
           </div>
           <div className="flex flex-col">
             <h3 className="font-display text-base font-bold leading-tight text-foreground">
-              {revealed ? candidate.private.name : p.headline}
+              {revealed && candidate.private ? candidate.private.name : p.headline}
             </h3>
             <p className="text-xs text-muted-foreground">
-              {revealed ? p.headline : `Candidate ${candidate.code}`}
+              {revealed && candidate.private ? p.headline : `Candidate ${candidate.code}`}
             </p>
           </div>
         </div>
@@ -74,7 +74,7 @@ export function CandidateCard({
           <div className="flex items-center gap-1.5">
             <MapPin className="h-3.5 w-3.5" aria-hidden="true" />
             <dt className="sr-only">Location</dt>
-            <dd>{revealed ? candidate.private.location : p.state}</dd>
+            <dd>{revealed && candidate.private ? candidate.private.location : p.state}</dd>
           </div>
           <div className="flex items-center gap-1.5">
             <CalendarClock className="h-3.5 w-3.5" aria-hidden="true" />
@@ -117,7 +117,7 @@ export function CandidateCard({
       </div>
 
       <div className="mt-auto border-t border-border pt-4">
-        {revealed ? (
+        {revealed && candidate.private ? (
           <div className="flex flex-col gap-2">
             <p className="text-[0.7rem] font-semibold uppercase tracking-wide text-green">
               Contact details unlocked
@@ -151,6 +151,15 @@ export function CandidateCard({
                 </li>
               )}
             </ul>
+          </div>
+        ) : revealed ? (
+          <div className="flex flex-col gap-2">
+            <p className="text-[0.7rem] font-semibold uppercase tracking-wide text-green">
+              Interest recorded
+            </p>
+            <p className="text-sm leading-relaxed text-muted-foreground">
+              The candidate will be notified and can respond through the Sora platform.
+            </p>
           </div>
         ) : (
           <div className="flex flex-col gap-3">

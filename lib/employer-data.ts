@@ -53,7 +53,7 @@ export type Candidate = {
     availability: string
     summary: string
   }
-  private: {
+  private?: {
     name: string
     email: string
     phone: string

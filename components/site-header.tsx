@@ -5,7 +5,6 @@ import Link from 'next/link'
 import { Menu, X } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { SoraLogo } from '@/components/sora-logo'
-import { RegisterDialog } from '@/components/register-dialog'
 
 const NAV_LINKS = [
   { label: 'Home', href: '#home' },
@@ -54,11 +53,9 @@ export function SiteHeader() {
             nativeButton={false}
             render={<Link href="/employer" />}
           >
-            Log In an Employer
+            Employer portal
           </Button>
-          <RegisterDialog className="bg-orange font-semibold text-orange-foreground hover:bg-orange/90">
-            Get Started / Sign Up
-          </RegisterDialog>
+          <Button className="bg-orange font-semibold text-orange-foreground hover:bg-orange/90" nativeButton={false} render={<Link href="/signup/pwd" />}>Create PWD profile</Button>
         </div>
 
         <button
@@ -97,14 +94,12 @@ export function SiteHeader() {
               <Button
                 variant="outline"
                 nativeButton={false}
-                render={<Link href="/employer" />}
+                render={<Link href="/login" />}
                 onClick={() => setMobileOpen(false)}
               >
-                Log In as an Employer
+                Log in
               </Button>
-              <RegisterDialog className="w-full bg-orange font-semibold text-orange-foreground hover:bg-orange/90">
-                Get Started / Sign Up
-              </RegisterDialog>
+              <Button className="w-full bg-orange font-semibold text-orange-foreground hover:bg-orange/90" nativeButton={false} render={<Link href="/signup/pwd" />} onClick={() => setMobileOpen(false)}>Create PWD profile</Button>
             </div>
           </nav>
         </div>

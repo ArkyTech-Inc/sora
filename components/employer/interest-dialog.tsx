@@ -45,7 +45,7 @@ export function InterestDialog({
                 />
                 <span>
                   The candidate is notified that{' '}
-                  <strong>Nigerian Communications Commission</strong> viewed
+                    <strong>Your organization</strong> viewed
                   their profile, and their name and contact details are shared
                   with you for recruitment purposes only.
                 </span>
