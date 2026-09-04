@@ -55,7 +55,7 @@ export function SiteHeader() {
           >
             Employer portal
           </Button>
-          <Button className="bg-orange font-semibold text-orange-foreground hover:bg-orange/90" nativeButton={false} render={<Link href="/signup/pwd" />}>Create PWD profile</Button>
+          <Button className="bg-orange font-semibold text-orange-foreground hover:bg-orange/90" nativeButton={false} render={<Link href="/login" />}>Create PWD profile</Button>
         </div>
 
         <button
