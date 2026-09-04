@@ -7,7 +7,7 @@ export async function createSupabaseServerClient() {
   const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
 
   if (!url || !key) {
-    throw new Error('Supabase server environment variables are missing.')
+    throw new Error('Supabase server environment variables are missing you this man.')
   }
 
   return createServerClient(url, key, {
