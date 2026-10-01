@@ -1,8 +1,5 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import { ArrowRight } from 'lucide-react'
-import { Button } from '@/components/ui/button'
-import { RegisterDialog } from '@/components/register-dialog'
 
 export function Hero() {
   return (

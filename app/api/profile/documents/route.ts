@@ -29,7 +29,11 @@ export async function POST(request: Request) {
     const upload = await supabase.storage.from('private-documents').upload(path, file, { contentType: file.type || undefined, upsert: false })
     if (upload.error) throw upload.error
 
-    const { error: documentError } = await supabase.from('pwd_documents').insert({ user_id: user.id, document_type: documentType, file_name: file.name, storage_path: path })
+    const { data: document, error: documentError } = await supabase
+      .from('pwd_documents')
+      .insert({ user_id: user.id, document_type: documentType, file_name: file.name, storage_path: path })
+      .select('id, document_type, file_name, created_at')
+      .single()
     if (documentError) throw documentError
 
     if (documentType === 'cv') {
@@ -37,7 +41,7 @@ export async function POST(request: Request) {
       if (error) throw error
     }
 
-    return NextResponse.json({ success: true })
+    return NextResponse.json({ success: true, document })
   } catch (error) {
     console.error('Document upload error:', error)
     return NextResponse.json({ error: 'Unable to upload that document.' }, { status: 500 })

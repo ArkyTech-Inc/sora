@@ -11,9 +11,7 @@ export async function GET() {
     return NextResponse.json({ error: 'An approved employer account is required.' }, { status: 403 })
   }
 
-  const { data, error } = await supabase
-    .from('pwd_directory')
-    .select('user_id, headline, category, skills, disability, accommodations, work_mode, experience_years, availability, summary, state')
+  const { data, error } = await supabase.rpc('get_verified_pwd_directory')
 
   if (error) {
     console.error('Talent directory error:', error)

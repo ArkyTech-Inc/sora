@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server'
-import { createClient } from '@supabase/supabase-js'
+import { sendAdminPwdReviewNotification, sendAdminReviewNotification, sendWelcomeEmail } from '@/lib/resend'
 import { createSupabaseAdminClient } from '@/lib/supabase/admin'
 
 type SignupBody = {
@@ -31,6 +31,10 @@ function required(value: string | undefined) {
 }
 
 export async function POST(request: Request) {
+  let adminClient: ReturnType<typeof createSupabaseAdminClient> | undefined
+  let createdUserId: string | undefined
+  let accountProvisioned = false
+
   try {
     const body = (await request.json()) as SignupBody
     const email = body.email?.trim().toLowerCase()
@@ -71,14 +75,11 @@ export async function POST(request: Request) {
       )
     }
 
-    const url = process.env.NEXT_PUBLIC_SUPABASE_URL
-    const anonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
-    if (!url || !anonKey) throw new Error('Supabase environment variables are missing.')
-
-    const authClient = createClient(url, anonKey)
-    const { data: authData, error: authError } = await authClient.auth.signUp({
+    adminClient = createSupabaseAdminClient()
+    const { data: authData, error: authError } = await adminClient.auth.admin.createUser({
       email,
       password: body.password,
+      email_confirm: true,
     })
 
     if (authError || !authData.user) {
@@ -90,9 +91,9 @@ export async function POST(request: Request) {
     }
 
     const userId = authData.user.id
-    const supabase = createSupabaseAdminClient()
-    const status = body.role === 'employer' ? 'pending' : 'approved'
-    const { error: profileError } = await supabase.from('profiles').insert({
+    createdUserId = userId
+    const status = 'pending'
+    const { error: profileError } = await adminClient.from('profiles').insert({
       id: userId,
       role: body.role,
       status,
@@ -105,7 +106,7 @@ export async function POST(request: Request) {
     if (profileError) throw profileError
 
     if (body.role === 'employer') {
-      const { error } = await supabase.from('employer_profiles').insert({
+      const { error } = await adminClient.from('employer_profiles').insert({
         user_id: userId,
         organization_name: body.organizationName!.trim(),
         organization_type: body.organizationType!.trim(),
@@ -115,8 +116,9 @@ export async function POST(request: Request) {
         accessibility_support: body.accessibilitySupport?.trim() || null,
       })
       if (error) throw error
+
     } else {
-      const { error } = await supabase.from('pwd_profiles').insert({
+      const { error } = await adminClient.from('pwd_profiles').insert({
         user_id: userId,
         headline: body.headline!.trim(),
         category: body.category!.trim(),
@@ -132,8 +134,26 @@ export async function POST(request: Request) {
       if (error) throw error
     }
 
-    return NextResponse.json({ success: true, requiresEmailConfirmation: true })
+    accountProvisioned = true
+    const emailJobs = [sendWelcomeEmail(email, body.fullName!.trim(), body.role)]
+    const adminEmail = process.env.SUPER_ADMIN_EMAIL
+    if (adminEmail) {
+      emailJobs.push(body.role === 'employer'
+        ? sendAdminReviewNotification(adminEmail, body.fullName!.trim(), body.organizationName!.trim())
+        : sendAdminPwdReviewNotification(adminEmail, body.fullName!.trim()))
+    }
+    const emailResults = await Promise.allSettled(emailJobs)
+    const emailSent = emailResults.every((result) => result.status === 'fulfilled')
+    emailResults.forEach((result) => {
+      if (result.status === 'rejected') console.error('Signup email delivery error:', result.reason)
+    })
+
+    return NextResponse.json({ success: true, emailSent })
   } catch (error) {
+    if (createdUserId && !accountProvisioned && adminClient) {
+      const { error: cleanupError } = await adminClient.auth.admin.deleteUser(createdUserId)
+      if (cleanupError) console.error('Signup rollback error:', cleanupError)
+    }
     console.error('Signup error:', error)
     return NextResponse.json(
       { error: 'Unable to create the account right now.' },

@@ -48,7 +48,7 @@ export function LoginForm() {
         {loading ? 'Logging in...' : 'Log in'}
       </Button>
       <p className="text-center text-sm text-muted-foreground">
-        New to Sora? <Link href="/signup/pwd" className="font-semibold text-orange hover:underline">Create a PWD profile</Link>
+        Hiring through Sora? <Link href="/signup/employer" className="font-semibold text-orange hover:underline">Create an employer profile</Link>
       </p>
     </form>
   )

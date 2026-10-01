@@ -29,6 +29,7 @@ export function RegisterDialog({
   const [submitted, setSubmitted] = useState(false)
   const [loading, setLoading] = useState(false)
   const [errorMsg, setErrorMsg] = useState<string | null>(null)
+  const [emailSent, setEmailSent] = useState(true)
   const [showPwdInput, setShowPwdInput] = useState(false)
 
   // Form State
@@ -55,6 +56,7 @@ export function RegisterDialog({
         throw new Error(data.error || 'Something went wrong')
       }
 
+      setEmailSent(data.emailSent !== false)
       setSubmitted(true)
     } catch (err: any) {
       setErrorMsg(err.message)
@@ -66,6 +68,7 @@ export function RegisterDialog({
   const resetForm = () => {
     setSubmitted(false)
     setErrorMsg(null)
+    setEmailSent(true)
     setLoading(false)
     setShowPwdInput(false)
     setName('')
@@ -95,7 +98,7 @@ export function RegisterDialog({
                 You&apos;re on your way!
               </DialogTitle>
               <DialogDescription>
-                Thanks for registering with Sora! Your profile has been recorded in our system and a confirmation email has been sent to <strong>{email}</strong> with your priority access details.
+                Thanks for registering with Sora! Your profile has been recorded in our system. {emailSent ? <>A confirmation email has been sent to <strong>{email}</strong> with your priority access details.</> : 'Resend could not deliver the email notification. Please contact Sora support if it does not arrive.'}
               </DialogDescription>
             </DialogHeader>
           </div>

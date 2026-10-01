@@ -37,6 +37,7 @@ export function SignupForm({ role }: { role: SignupRole }) {
   })
   const [error, setError] = useState<string | null>(null)
   const [submitted, setSubmitted] = useState(false)
+  const [emailSent, setEmailSent] = useState(true)
   const [loading, setLoading] = useState(false)
 
   const update = (key: string, value: string) => setForm((current) => ({ ...current, [key]: value }))
@@ -63,6 +64,7 @@ export function SignupForm({ role }: { role: SignupRole }) {
       })
       const result = await response.json()
       if (!response.ok) throw new Error(result.error || 'Unable to create your account.')
+      setEmailSent(result.emailSent !== false)
       setSubmitted(true)
     } catch (error) {
       setError(error instanceof Error ? error.message : 'Unable to create your account.')
@@ -76,7 +78,7 @@ export function SignupForm({ role }: { role: SignupRole }) {
       <div className="mt-8 rounded-xl border border-green/30 bg-green/10 p-6">
         <h2 className="font-display text-xl font-bold text-foreground">Account created</h2>
         <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-          Check your email to confirm your account. {role === 'employer' ? 'After confirmation, an administrator will review your employer application.' : 'After confirmation, log in to finish managing your profile and documents.'}
+          Your account has been created successfully. {role === 'employer' ? 'A Sora admin will review your employer application and send a decision by email.' : 'Your PWD profile is awaiting Sora verification. You can log in, complete your documents, and track its review.'} {!emailSent && 'The account is ready, but Resend could not deliver one or more notifications. Contact Sora support if you do not receive them.'}
         </p>
         <div className="mt-5 flex flex-wrap gap-3">
           <Button type="button" onClick={() => router.push('/login')} className="bg-orange text-orange-foreground hover:bg-orange/90">Go to login</Button>

@@ -1,11 +1,11 @@
 import Link from 'next/link'
 import type { Metadata } from 'next'
 import { redirect } from 'next/navigation'
-import { LogOut } from 'lucide-react'
 import { SoraLogo } from '@/components/sora-logo'
 import { EmployerDashboard } from '@/components/employer/employer-dashboard'
 import { AccessibilityToolbar } from '@/components/accessibility-toolbar'
-import { getCurrentProfile } from '@/lib/supabase/server'
+import { SignOutButton } from '@/components/auth/sign-out-button'
+import { createSupabaseServerClient, getCurrentProfile } from '@/lib/supabase/server'
 
 export const metadata: Metadata = {
   title: 'Employer Dashboard — Sora',
@@ -17,6 +17,13 @@ export default async function EmployerPage() {
   const profile = await getCurrentProfile()
   if (!profile || profile.role !== 'employer') redirect('/login')
   if (profile.status !== 'approved') redirect('/account')
+
+  const supabase = await createSupabaseServerClient()
+  const { data: employerDetails } = await supabase
+    .from('employer_profiles')
+    .select('organization_name, organization_type, organization_state, accessibility_support, website')
+    .eq('user_id', profile.id)
+    .maybeSingle()
 
   return (
     <>
@@ -52,20 +59,14 @@ export default async function EmployerPage() {
                 {profile.email}
               </span>
             </div>
-            <Link
-              href="/"
-              className="inline-flex items-center gap-1.5 rounded-lg border border-border px-3 py-2 text-sm font-medium text-foreground transition-colors hover:bg-muted focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
-            >
-              <LogOut className="h-4 w-4" aria-hidden="true" />
-              Log out
-            </Link>
+            <SignOutButton className="inline-flex items-center gap-1.5 px-3 py-2 text-sm font-medium" />
           </div>
         </div>
       </header>
       <AccessibilityToolbar />
 
       <main id="talent-pool">
-        <EmployerDashboard employerName={profile.full_name} />
+        <EmployerDashboard employerName={profile.full_name} employerDetails={employerDetails} />
       </main>
     </>
   )
