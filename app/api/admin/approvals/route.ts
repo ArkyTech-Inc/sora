@@ -83,6 +83,7 @@ export async function POST(request: Request) {
   }
 
   let emailSent = true
+  let emailErrorMessage: string | null = null
   try {
     if (targetProfile.role === 'employer') {
       await sendEmployerStatusEmail(targetProfile.email, targetProfile.full_name, decision)
@@ -91,8 +92,9 @@ export async function POST(request: Request) {
     }
   } catch (emailError) {
     emailSent = false
+    emailErrorMessage = emailError instanceof Error ? emailError.message : 'Unknown Resend error.'
     console.error('Employer status email delivery error:', emailError)
   }
 
-  return NextResponse.json({ success: true, status: decision, emailSent })
+  return NextResponse.json({ success: true, status: decision, emailSent, emailError: emailErrorMessage })
 }

@@ -68,7 +68,9 @@ export function AdminReviewWorkspace() {
       const result = await response.json()
       if (!response.ok) throw new Error(result.error || 'Unable to update account status.')
       await loadApplications()
-      if (result.emailSent === false) setError('Account status was updated, but Resend could not deliver the email notification.')
+      if (result.emailSent === false) {
+        setError(`Account status was updated, but Resend could not deliver the email notification. ${result.emailError || ''}`.trim())
+      }
     } catch (updateError) {
       setError(updateError instanceof Error ? updateError.message : 'Unable to update account status.')
     } finally {
@@ -133,6 +135,15 @@ export function AdminReviewWorkspace() {
                     </div>
 
                     <div className="flex flex-wrap gap-2">
+                      {application.status !== 'pending' && (
+                        <Button
+                          variant="outline"
+                          onClick={() => void updateStatus(application.id, application.status as 'approved' | 'rejected')}
+                          disabled={workingId === application.id}
+                        >
+                          Resend decision email
+                        </Button>
+                      )}
                       <Button
                         variant="outline"
                         onClick={() => void updateStatus(application.id, 'rejected')}
